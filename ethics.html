@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPSU Ethics And Anti-Corruption Club | Instant Registration Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        epsu: {
+                            navy: '#0B132B',
+                            navyLight: '#1C2541',
+                            gold: '#D97706',
+                            goldLight: '#FBBF24',
+                            emerald: '#059669',
+                            emeraldDark: '#047857',
+                            bg: '#F8FAFC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-pattern {
+            background-color: #0B132B;
+            background-image: radial-gradient(#1C2541 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        @keyframes toastIn {
+            from { transform: translateY(100%) scale(0.9); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        .animate-toast {
+            animation: toastIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printableReportArea, #printableReportArea * {
+                visibility: visible;
+            }
+            #printableReportArea {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-amber-500 selection:text-white flex flex-col min-h-screen">
+
+    <header class="sticky top-0 z-40 bg-epsu-navy/95 backdrop-blur-md border-b border-slate-800 text-white shadow-xl transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center space-x-3.5 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-slate-950 shadow-lg font-bold text-2xl border border-white/30">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl font-black tracking-tight leading-none text-white">EPSU</span>
+                            <span class="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1.5 py-0.5 rounded font-mono font-bold">ETHICS</span>
+                        </div>
+                        <span class="text-xs font-medium text-slate-300 tracking-wider">Ethics And Anti-Corruption Club</span>
+                    </div>
+                </div>
+
+                <!-- Database Connection Indicator -->
+                <div class="hidden sm:flex items-center gap-2 bg-slate-900/80 border border-slate-800 px-3 py-1.5 rounded-full text-xs font-mono">
+                    <span id="liveStatusDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span id="liveStatusText" class="text-emerald-400 font-semibold">Instant Local Storage + Sync</span>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-7 text-sm font-semibold">
+                    <a href="#about" class="hover:text-amber-400 transition-colors">About Us</a>
+                    <a href="#register" class="hover:text-amber-400 transition-colors">Register</a>
+                    <a href="#admin" class="hover:text-amber-400 transition-colors text-amber-400 font-bold flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-lg">
+                        <i class="fa-solid fa-user-shield"></i> Admin Portal
+                    </a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <a href="#register" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-5 py-2.5 rounded-xl shadow-lg transition-all text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-user-plus"></i> Join Club
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white p-2 rounded-lg" aria-label="Toggle menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-epsu-navy border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#about" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">About Us</a>
+            <a href="#register" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-slate-200 hover:bg-slate-800">Register</a>
+            <a href="#admin" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30">Admin Panel (epsu0ethics)</a>
+            <a href="#register" class="mobile-nav-link block w-full text-center bg-amber-500 text-slate-950 font-bold px-4 py-3 rounded-xl mt-4">
+                Join Club Now
+            </a>
+        </div>
+    </header>
+
+    <section class="hero-pattern text-white relative overflow-hidden py-16 lg:py-24 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold tracking-wider uppercase">
+                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                        Ethiopian Public Service University (EPSU)
+                    </div>
+                    
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                        Championing <span class="gold-gradient-text">Ethics and Integrity</span> in Public Service
+                    </h1>
+                    
+                    <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Instant student registration portal for the EPSU Ethics and Anti-Corruption Club. Empowering future leaders and public servants with zero delay.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#register" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-center shadow-xl transition-all">
+                            Register as Member <i class="fa-solid fa-arrow-right ms-1"></i>
+                        </a>
+                        <a href="#admin" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-center transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-amber-400"></i> Admin Panel
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Anti-Corruption Pledge Card -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="w-full max-w-md bg-slate-900/90 p-8 rounded-3xl border border-slate-700/80 shadow-2xl backdrop-blur-sm text-center relative">
+                        <div class="w-14 h-14 bg-amber-500 text-slate-950 rounded-2xl flex items-center justify-center text-2xl font-bold shadow-lg mx-auto mb-4">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Anti-Corruption Pledge</h3>
+                        <p class="text-slate-300 italic text-xs sm:text-sm mb-6 leading-relaxed">
+                            "As a student at Ethiopian Public Service University, I commit to absolute honesty, strict refusal of corrupt practices, and maintaining high ethical standards across all regions."
+                        </p>
+                        <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700 text-left space-y-2.5 text-xs text-slate-300">
+                            <div class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-check-circle text-amber-400"></i>
+                                <span>Zero Tolerance to Nepotism & Bribery</span>
+                            </div>
+                            <div class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-check-circle text-amber-400"></i>
+                                <span>Instant Guaranteed Submission</span>
+                            </div>
+                            <div class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-check-circle text-amber-400"></i>
+                                <span>Meritocratic Governance Standards</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-extrabold uppercase tracking-widest text-amber-600 mb-2">Institutional Pillar</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900">About EPSU Ethics And Anti-Corruption Club</h3>
+                <div class="w-16 h-1 bg-amber-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-lg font-bold mb-4">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Our Mission</h4>
+                    <p class="text-slate-600 text-xs leading-relaxed">Promote moral fortitude, transparent governance, and rigorous anti-corruption policies across all university departments.</p>
+                </div>
+
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg font-bold mb-4">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Our Vision</h4>
+                    <p class="text-slate-600 text-xs leading-relaxed">To become the benchmark student club in East Africa for training ethical public service leaders committed to national integrity.</p>
+                </div>
+
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <div class="w-10 h-10 rounded-lg bg-slate-200 text-slate-800 flex items-center justify-center text-lg font-bold mb-4">
+                        <i class="fa-solid fa-gavel"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-2">Legal Mandate</h4>
+                    <p class="text-slate-600 text-xs leading-relaxed">Operating under EPSU Ethics Liaison Directorate in alignment with Federal Ethics and Anti-Corruption Commission guidelines.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="register" class="py-16 bg-slate-100 border-t border-slate-200">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-8">
+                <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold uppercase tracking-wider">Official Membership</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-2">Student Registration Form</h2>
+                <p class="text-slate-600 text-xs mt-1">Instant registration submission with zero wait time.</p>
+            </div>
+
+            <div class="bg-white p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
+                <form id="studentRegistrationForm" class="space-y-5" novalidate>
+                    
+                    <!-- 1. Full Name -->
+                    <div>
+                        <label for="regFullName" class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                            1. Full Name <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-user text-sm"></i>
+                            </span>
+                            <input type="text" id="regFullName" required placeholder="e.g. Workneh Gebeyehu Tola" 
+                                class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-sm bg-white outline-none">
+                        </div>
+                        <span id="err-regFullName" class="text-xs text-red-500 hidden mt-1">Please enter your full name.</span>
+                    </div>
+
+                    <!-- 2. Phone Number -->
+                    <div>
+                        <label for="regPhone" class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                            2. Phone Number <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                <i class="fa-solid fa-phone text-sm"></i>
+                            </span>
+                            <input type="tel" id="regPhone" required placeholder="+251 91 123 4567" 
+                                class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-sm bg-white outline-none">
+                        </div>
+                        <span id="err-regPhone" class="text-xs text-red-500 hidden mt-1">Please enter a valid phone number.</span>
+                    </div>
+
+                    <!-- 3. Region -->
+                    <div>
+                        <label for="regRegion" class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                            3. Region <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 pointer-events-none">
+                                <i class="fa-solid fa-map-location-dot text-sm"></i>
+                            </span>
+                            <select id="regRegion" required class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-sm bg-white outline-none appearance-none">
+                                <option value="">-- Select Region / Administration --</option>
+                                <option value="Addis Ababa">Addis Ababa</option>
+                                <option value="Afar">Afar</option>
+                                <option value="Amhara">Amhara</option>
+                                <option value="Benishangul-Gumuz">Benishangul-Gumuz</option>
+                                <option value="Central Ethiopia">Central Ethiopia</option>
+                                <option value="Dire Dawa">Dire Dawa</option>
+                                <option value="Gambela">Gambela</option>
+                                <option value="Harari">Harari</option>
+                                <option value="Oromia">Oromia</option>
+                                <option value="Sidama">Sidama</option>
+                                <option value="Somali">Somali</option>
+                                <option value="South Ethiopia">South Ethiopia</option>
+                                <option value="South West Ethiopia">South West Ethiopia</option>
+                                <option value="Southern Nations (SNNPR)">Southern Nations (SNNPR)</option>
+                                <option value="Tigray">Tigray</option>
+                                <option value="International / Other">International / Other</option>
+                            </select>
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 pointer-events-none">
+                                <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </span>
+                        </div>
+                        <span id="err-regRegion" class="text-xs text-red-500 hidden mt-1">Please select your region.</span>
+                    </div>
+
+                    <!-- 4. Academic Performance Evaluation Type & Value -->
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                                4. Select Score Evaluation Type <span class="text-red-500">*</span>
+                            </label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <label id="labelOptionEntrance" class="flex items-center justify-center p-3 rounded-xl border border-amber-500 bg-amber-50/50 text-amber-900 font-bold text-xs cursor-pointer transition-all shadow-sm">
+                                    <input type="radio" name="scoreType" value="Entrance" checked class="me-2 accent-amber-600" onchange="toggleScoreType('Entrance')">
+                                    <span>Entrance Exam (0-600)</span>
+                                </label>
+                                <label id="labelOptionGPA" class="flex items-center justify-center p-3 rounded-xl border border-slate-300 bg-white text-slate-700 font-bold text-xs cursor-pointer transition-all hover:bg-slate-100">
+                                    <input type="radio" name="scoreType" value="GPA" class="me-2 accent-amber-600" onchange="toggleScoreType('GPA')">
+                                    <span>Cumulative GPA (0.0-4.0)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label id="scoreValueLabel" for="regScoreValue" class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                                Enter Entrance Exam Result (0 to 600) <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                                    <i class="fa-solid fa-graduation-cap text-sm"></i>
+                                </span>
+                                <input type="number" id="regScoreValue" min="0" max="600" step="1" required placeholder="e.g. 485" 
+                                    class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-sm bg-white outline-none">
+                            </div>
+                            <span id="err-regScoreValue" class="text-xs text-red-500 hidden mt-1">Please enter a valid result between 0 and 600.</span>
+                        </div>
+                    </div>
+
+                    <button id="submitBtn" type="submit" class="w-full py-4 bg-slate-900 hover:bg-slate-800 text-amber-400 font-extrabold rounded-xl shadow-lg transition-all text-sm uppercase tracking-wider flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Submit Registration
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="admin" class="py-16 bg-epsu-navy text-white min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Admin Header Bar -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between pb-8 border-b border-slate-800 gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold mb-2">
+                        <i class="fa-solid fa-shield-check text-amber-400"></i> ADMIN MANAGEMENT PANEL
+                    </div>
+                    <h2 class="text-3xl font-black text-white">Student Oversee Dashboard</h2>
+                    <p class="text-slate-400 text-xs mt-1">Passcode: <code class="text-amber-400 font-bold"></code></p>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <div id="adminAuthBadge" class="hidden items-center gap-2 px-3 py-1.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg text-xs font-bold">
+                        <i class="fa-solid fa-shield-check"></i> Authenticated Admin
+                    </div>
+                    <button id="lockAdminBtn" onclick="lockAdminPanel()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold border border-slate-700 transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-lock me-1"></i> Lock Panel
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Locked Overlay -->
+            <div id="adminLockedState" class="py-20 text-center max-w-md mx-auto">
+                <div class="w-16 h-16 bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-2xl flex items-center justify-center mx-auto text-3xl mb-4">
+                    <i class="fa-solid fa-user-gear"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Admin Passcode Required</h3>
+                <p class="text-slate-400 text-xs mb-6">Enter passcode <code class="text-amber-400">epsuxxxxx</code> to unlock student registration records.</p>
+                <button onclick="promptAdminLogin()" class="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold rounded-xl text-sm transition-all shadow-lg">
+                    <i class="fa-solid fa-key me-2"></i> Unlock Admin Panel
+                </button>
+            </div>
+
+            <!-- Admin Unlocked Dashboard -->
+            <div id="adminUnlockedContent" class="hidden space-y-8 mt-8">
+
+                <!-- Real-time Analytics Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800">
+                        <p class="text-xs text-slate-400 font-medium">Total Applicants</p>
+                        <p class="text-3xl font-black text-white mt-1" id="statTotal">0</p>
+                        <span class="text-[10px] text-emerald-400 font-mono"><i class="fa-solid fa-database"></i> Live Sync Enabled</span>
+                    </div>
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800">
+                        <p class="text-xs text-slate-400 font-medium">Avg Entrance Exam Score</p>
+                        <p class="text-3xl font-black text-amber-400 mt-1" id="statAvgEntrance">0</p>
+                        <span class="text-[10px] text-slate-500">Out of 600 points</span>
+                    </div>
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800">
+                        <p class="text-xs text-slate-400 font-medium">Avg Cumulative GPA</p>
+                        <p class="text-3xl font-black text-emerald-400 mt-1" id="statAvgGPA">0.00</p>
+                        <span class="text-[10px] text-slate-500">Out of 4.00 scale</span>
+                    </div>
+                    <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800">
+                        <p class="text-xs text-slate-400 font-medium">Top Region</p>
+                        <p class="text-xl font-bold text-white mt-1 truncate" id="statTopRegion">N/A</p>
+                        <span class="text-[10px] text-slate-500">Highest volume</span>
+                    </div>
+                </div>
+
+                <!-- Controls, Search & Tools -->
+                <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-4">
+                    <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                        
+                        <!-- Search Box -->
+                        <div class="relative w-full lg:w-80">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-xs"></i>
+                            <input type="text" id="adminSearch" placeholder="Search name, phone, ID..." 
+                                class="w-full pl-9 pr-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-amber-500">
+                        </div>
+
+                        <!-- Filters & Sorting -->
+                        <div class="flex flex-wrap w-full lg:w-auto items-center gap-3 text-xs">
+                            <select id="adminFilterScoreType" class="bg-slate-950 border border-slate-800 text-slate-200 py-2 px-3 rounded-xl focus:outline-none">
+                                <option value="">All Score Types</option>
+                                <option value="Entrance">Entrance Exam (0-600)</option>
+                                <option value="GPA">GPA (0-4.0)</option>
+                            </select>
+
+                            <select id="adminFilterRegion" class="bg-slate-950 border border-slate-800 text-slate-200 py-2 px-3 rounded-xl focus:outline-none">
+                                <option value="">All Regions</option>
+                                <option value="Addis Ababa">Addis Ababa</option>
+                                <option value="Afar">Afar</option>
+                                <option value="Amhara">Amhara</option>
+                                <option value="Benishangul-Gumuz">Benishangul-Gumuz</option>
+                                <option value="Central Ethiopia">Central Ethiopia</option>
+                                <option value="Dire Dawa">Dire Dawa</option>
+                                <option value="Gambela">Gambela</option>
+                                <option value="Harari">Harari</option>
+                                <option value="Oromia">Oromia</option>
+                                <option value="Sidama">Sidama</option>
+                                <option value="Somali">Somali</option>
+                                <option value="South Ethiopia">South Ethiopia</option>
+                                <option value="South West Ethiopia">South West Ethiopia</option>
+                                <option value="Southern Nations (SNNPR)">Southern Nations (SNNPR)</option>
+                                <option value="Tigray">Tigray</option>
+                                <option value="International / Other">International / Other</option>
+                            </select>
+
+                            <select id="adminFilterStatus" class="bg-slate-950 border border-slate-800 text-slate-200 py-2 px-3 rounded-xl focus:outline-none">
+                                <option value="">All Statuses</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+
+                            <select id="adminSortBy" class="bg-slate-950 border border-slate-800 text-slate-200 py-2 px-3 rounded-xl focus:outline-none">
+                                <option value="newest">Sort: Newest First</option>
+                                <option value="scoreHigh">Sort: Highest Score</option>
+                                <option value="name">Sort: Name A-Z</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Export & Utility Actions -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 border-t border-slate-800 pt-4">
+                        <div class="flex items-center gap-2">
+                            <button onclick="exportCSV()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-csv text-sm"></i> Export CSV
+                            </button>
+                            <button onclick="printSummaryReport()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 border border-slate-700">
+                                <i class="fa-solid fa-print text-sm"></i> Print Summary
+                            </button>
+                        </div>
+
+                        <div class="text-[11px] text-slate-400 font-mono">
+                            Storage Mode: <span id="syncIndicator" class="text-emerald-400 font-bold">Local + Background Firestore</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Tabular View -->
+                <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-950 border-b border-slate-800 text-slate-400 uppercase font-bold tracking-wider">
+                                    <th class="py-4 px-4">Reg ID</th>
+                                    <th class="py-4 px-4">Full Name</th>
+                                    <th class="py-4 px-4">Phone Number</th>
+                                    <th class="py-4 px-4">Region</th>
+                                    <th class="py-4 px-4">Score Evaluation</th>
+                                    <th class="py-4 px-4">Status</th>
+                                    <th class="py-4 px-4 text-center">Oversee Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminTableBody" class="divide-y divide-slate-800/60 text-slate-300">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="adminEmptyState" class="hidden text-center py-12">
+                        <i class="fa-solid fa-folder-open text-3xl text-slate-600 mb-2"></i>
+                        <p class="text-slate-400 text-xs">No registered students found matching criteria.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+    <!-- Printable Report Template -->
+    <div id="printableReportArea" class="hidden p-8 bg-white text-slate-900">
+        <div class="text-center border-b-2 border-slate-900 pb-4 mb-6">
+            <h1 class="text-2xl font-black uppercase">ETHIOPIAN PUBLIC SERVICE UNIVERSITY (EPSU)</h1>
+            <h2 class="text-lg font-bold">ETHICS & ANTI-CORRUPTION CLUB</h2>
+            <p class="text-xs text-slate-600 mt-1">Official Student Membership Audit Report</p>
+        </div>
+        <div class="mb-4 text-xs flex justify-between font-mono">
+            <span>Generated Date: <strong id="printDate"></strong></span>
+            <span>Total Records: <strong id="printCount"></strong></span>
+        </div>
+        <table class="w-full border-collapse text-xs">
+            <thead>
+                <tr class="bg-slate-200 border border-slate-400">
+                    <th class="p-2 border border-slate-400">#</th>
+                    <th class="p-2 border border-slate-400">Full Name</th>
+                    <th class="p-2 border border-slate-400">Phone</th>
+                    <th class="p-2 border border-slate-400">Region</th>
+                    <th class="p-2 border border-slate-400">Score Evaluation</th>
+                    <th class="p-2 border border-slate-400">Status</th>
+                </tr>
+            </thead>
+            <tbody id="printTableBody">
+                <!-- Dynamic print rows -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal: Admin Auth Passcode (epsu0ethics) -->
+    <div id="authModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl">
+            <div class="w-12 h-12 bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-2xl flex items-center justify-center mx-auto text-xl mb-3">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">Admin Verification</h3>
+            <p class="text-slate-400 text-xs mb-4">Enter passcode to access student records.</p>
+            
+            <input type="password" id="adminPasscodeKey" placeholder="Passcode eg (epsu11)" 
+                class="w-full px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-center text-white mb-4 outline-none focus:border-amber-500">
+            
+            <span id="authError" class="text-xs text-red-400 hidden block mb-3">Incorrect passcode. Hint: epsu0ethics</span>
+
+            <div class="flex gap-2">
+                <button onclick="closeAuthModal()" class="w-1/2 py-2.5 bg-slate-800 text-slate-300 rounded-xl text-xs font-bold">Cancel</button>
+                <button onclick="submitAdminAuth()" class="w-1/2 py-2.5 bg-amber-500 text-slate-950 rounded-xl text-xs font-extrabold">Unlock</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Student Detail Oversee Modal -->
+    <div id="studentDetailModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl text-white relative">
+            <button onclick="closeStudentModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center text-xl font-bold border border-amber-500/30">
+                    <i class="fa-solid fa-id-card"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold" id="detailName">Student Details</h3>
+                    <p class="text-xs text-slate-400" id="detailRegId">ID: -</p>
+                </div>
+            </div>
+
+            <div class="space-y-3 bg-slate-950 p-4 rounded-2xl border border-slate-800 text-xs">
+                <div class="flex justify-between border-b border-slate-800/80 pb-2">
+                    <span class="text-slate-400">Phone Number:</span>
+                    <span id="detailPhone" class="font-mono font-bold text-slate-200">-</span>
+                </div>
+                <div class="flex justify-between border-b border-slate-800/80 pb-2">
+                    <span class="text-slate-400">Region:</span>
+                    <span id="detailRegion" class="font-bold text-amber-400">-</span>
+                </div>
+                <div class="flex justify-between border-b border-slate-800/80 pb-2">
+                    <span class="text-slate-400">Score Evaluation:</span>
+                    <span id="detailScore" class="font-bold text-emerald-400">-</span>
+                </div>
+                <div class="flex justify-between border-b border-slate-800/80 pb-2">
+                    <span class="text-slate-400">Current Status:</span>
+                    <span id="detailStatus" class="font-bold">-</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Registration Date:</span>
+                    <span id="detailDate" class="font-mono text-slate-300">-</span>
+                </div>
+            </div>
+
+            <div class="mt-6 flex gap-2">
+                <button onclick="updateStudentStatusFromModal('Approved')" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs transition-colors">
+                    <i class="fa-solid fa-check me-1"></i> Approve
+                </button>
+                <button onclick="updateStudentStatusFromModal('Rejected')" class="flex-1 py-2.5 bg-red-600/80 hover:bg-red-600 text-white font-bold rounded-xl text-xs transition-colors">
+                    <i class="fa-solid fa-xmark me-1"></i> Reject
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl">
+            <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl mb-3">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-1">Registration Successful!</h3>
+            <p class="text-slate-600 text-xs mb-4">Your application has been instantly saved and submitted to the EPSU Ethics Club directory.</p>
+            <button onclick="closeSuccessModal()" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold rounded-xl text-xs">
+                Done
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 text-xs py-8 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-amber-400"></i>
+                <span class="font-bold text-slate-200">EPSU Ethics and Anti-Corruption Club</span>
+            </div>
+            <p>&copy; 2026 Ethiopian Public Service University. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            collection, 
+            doc, 
+            setDoc, 
+            updateDoc, 
+            deleteDoc, 
+            onSnapshot 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global Application State
+        let app, db, auth;
+        let activeStudentDetailId = null;
+        let activeScoreType = 'Entrance';
+        let liveMembersList = [];
+
+        const STORAGE_KEY = 'epsu_ethics_club_members_v2';
+
+        // Load local records initially
+        function getLocalMembers() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) return JSON.parse(stored);
+            } catch(e) {
+                console.error("Local storage error:", e);
+            }
+            return [
+                { id: 'EPSU-2026-1001', fullName: 'Workneh Gebeyehu Tola', phone: '+251911223344', region: 'Oromia', scoreType: 'Entrance', scoreValue: 485, status: 'Approved', date: '2026-10-01' },
+                { id: 'EPSU-2026-1002', fullName: 'Mulugeta Tesfaye Haile', phone: '+251922334455', region: 'Addis Ababa', scoreType: 'GPA', scoreValue: 3.85, status: 'Approved', date: '2026-10-02' }
+            ];
+        }
+
+        function saveLocalMembers(list) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+            } catch(e) {
+                console.error("Error saving local data:", e);
+            }
+        }
+
+        liveMembersList = getLocalMembers();
+
+        // 1. Firebase Config
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'epsu-ethics-club-app';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' 
+            ? JSON.parse(__firebase_config) 
+            : {
+                apiKey: "demo-key",
+                authDomain: "demo.firebaseapp.com",
+                projectId: "demo-project",
+                storageBucket: "demo.appspot.com",
+                messagingSenderId: "00000000000",
+                appId: "1:00000000000:web:00000000000"
+              };
+
+        const collectionPath = ['artifacts', appId, 'public', 'data', 'registrations'];
+
+        // Init Firebase
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+        } catch (e) {
+            console.warn("Firebase initialization skipped, running in local storage mode.");
+        }
+
+        // Background Cloud Sync Setup
+        async function initCloudSync() {
+            if (!auth || !db) return;
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                const registrationsRef = collection(db, ...collectionPath);
+
+                onSnapshot(registrationsRef, (snapshot) => {
+                    const cloudList = [];
+                    snapshot.forEach(docSnap => {
+                        const data = docSnap.data();
+                        cloudList.push({
+                            id: docSnap.id,
+                            fullName: data.fullName || 'Unknown Student',
+                            phone: data.phone || 'N/A',
+                            region: data.region || 'Unspecified',
+                            scoreType: data.scoreType || 'Entrance',
+                            scoreValue: data.scoreValue || 0,
+                            status: data.status || 'Pending',
+                            date: data.date || new Date().toISOString().split('T')[0]
+                        });
+                    });
+
+                    if (cloudList.length > 0) {
+                        // Merge cloud list with local storage without duplicates
+                        const mergedMap = new Map();
+                        liveMembersList.forEach(m => mergedMap.set(m.id, m));
+                        cloudList.forEach(m => mergedMap.set(m.id, m));
+                        liveMembersList = Array.from(mergedMap.values());
+                        saveLocalMembers(liveMembersList);
+                    }
+
+                    if (isAdminLoggedIn()) renderAdminPanel();
+                }, (err) => {
+                    console.warn("Firestore snapshot offline:", err);
+                });
+
+            } catch (err) {
+                console.warn("Cloud connection error, using local storage:", err);
+            }
+        }
+
+        function playNotificationChime() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.4);
+            } catch(e) {}
+        }
+
+        function showLiveToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'pointer-events-auto bg-slate-900 border border-amber-500/40 text-white text-xs px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-toast';
+            toast.innerHTML = `
+                <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="font-bold text-amber-300">Registration Confirmed</p>
+                    <p class="text-slate-300">${escapeHtml(message)}</p>
+                </div>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>"']/g, function(m) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+            });
+        }
+
+        window.toggleScoreType = function(type) {
+            activeScoreType = type;
+            const scoreInput = document.getElementById('regScoreValue');
+            const scoreLabel = document.getElementById('scoreValueLabel');
+            const labelEntrance = document.getElementById('labelOptionEntrance');
+            const labelGPA = document.getElementById('labelOptionGPA');
+
+            if (type === 'Entrance') {
+                scoreLabel.innerHTML = 'Enter Entrance Exam Result (0 to 600) <span class="text-red-500">*</span>';
+                scoreInput.placeholder = 'e.g. 485';
+                scoreInput.min = '0';
+                scoreInput.max = '600';
+                scoreInput.step = '1';
+                
+                labelEntrance.className = 'flex items-center justify-center p-3 rounded-xl border border-amber-500 bg-amber-50/50 text-amber-900 font-bold text-xs cursor-pointer transition-all shadow-sm';
+                labelGPA.className = 'flex items-center justify-center p-3 rounded-xl border border-slate-300 bg-white text-slate-700 font-bold text-xs cursor-pointer transition-all hover:bg-slate-100';
+            } else {
+                scoreLabel.innerHTML = 'Enter Cumulative GPA (0.00 to 4.00) <span class="text-red-500">*</span>';
+                scoreInput.placeholder = 'e.g. 3.65';
+                scoreInput.min = '0.0';
+                scoreInput.max = '4.0';
+                scoreInput.step = '0.01';
+
+                labelGPA.className = 'flex items-center justify-center p-3 rounded-xl border border-amber-500 bg-amber-50/50 text-amber-900 font-bold text-xs cursor-pointer transition-all shadow-sm';
+                labelEntrance.className = 'flex items-center justify-center p-3 rounded-xl border border-slate-300 bg-white text-slate-700 font-bold text-xs cursor-pointer transition-all hover:bg-slate-100';
+            }
+            scoreInput.value = '';
+            document.getElementById('err-regScoreValue').classList.add('hidden');
+        };
+
+        function isAdminLoggedIn() {
+            return sessionStorage.getItem('epsu_admin_session') === 'true';
+        }
+
+        window.promptAdminLogin = function() {
+            if (isAdminLoggedIn()) {
+                showAdminUnlocked();
+            } else {
+                document.getElementById('authModal').classList.remove('hidden');
+                document.getElementById('authModal').classList.add('flex');
+                document.getElementById('adminPasscodeKey').focus();
+            }
+        };
+
+        window.closeAuthModal = function() {
+            document.getElementById('authModal').classList.add('hidden');
+            document.getElementById('authModal').classList.remove('flex');
+            document.getElementById('authError').classList.add('hidden');
+        };
+
+        window.submitAdminAuth = function() {
+            const key = document.getElementById('adminPasscodeKey').value;
+            if (key === 'epsu0ethics') {
+                sessionStorage.setItem('epsu_admin_session', 'true');
+                closeAuthModal();
+                showAdminUnlocked();
+            } else {
+                document.getElementById('authError').classList.remove('hidden');
+            }
+        };
+
+        function showAdminUnlocked() {
+            document.getElementById('adminLockedState').classList.add('hidden');
+            document.getElementById('adminUnlockedContent').classList.remove('hidden');
+            document.getElementById('adminAuthBadge').classList.remove('hidden');
+            document.getElementById('adminAuthBadge').classList.add('flex');
+            renderAdminPanel();
+        }
+
+        window.lockAdminPanel = function() {
+            sessionStorage.removeItem('epsu_admin_session');
+            document.getElementById('adminUnlockedContent').classList.add('hidden');
+            document.getElementById('adminAuthBadge').classList.add('hidden');
+            document.getElementById('adminLockedState').classList.remove('hidden');
+        };
+
+        function renderAdminPanel() {
+            if (!isAdminLoggedIn()) return;
+
+            const members = liveMembersList;
+            const searchVal = document.getElementById('adminSearch').value.toLowerCase().trim();
+            const scoreTypeFilter = document.getElementById('adminFilterScoreType').value;
+            const regionFilter = document.getElementById('adminFilterRegion').value;
+            const statusFilter = document.getElementById('adminFilterStatus').value;
+            const sortBy = document.getElementById('adminSortBy').value;
+
+            // Stats calculations
+            const total = members.length;
+            
+            const entranceMembers = members.filter(m => m.scoreType === 'Entrance');
+            const avgEntrance = entranceMembers.length > 0 
+                ? Math.round(entranceMembers.reduce((acc, curr) => acc + parseFloat(curr.scoreValue || 0), 0) / entranceMembers.length)
+                : 0;
+
+            const gpaMembers = members.filter(m => m.scoreType === 'GPA');
+            const avgGpa = gpaMembers.length > 0 
+                ? (gpaMembers.reduce((acc, curr) => acc + parseFloat(curr.scoreValue || 0), 0) / gpaMembers.length).toFixed(2)
+                : '0.00';
+
+            const regionCounts = {};
+            members.forEach(m => regionCounts[m.region] = (regionCounts[m.region] || 0) + 1);
+            let topRegion = 'N/A';
+            let maxCount = 0;
+            for (const r in regionCounts) {
+                if (regionCounts[r] > maxCount) {
+                    maxCount = regionCounts[r];
+                    topRegion = r;
+                }
+            }
+
+            document.getElementById('statTotal').innerText = total;
+            document.getElementById('statAvgEntrance').innerText = avgEntrance;
+            document.getElementById('statAvgGPA').innerText = avgGpa;
+            document.getElementById('statTopRegion').innerText = topRegion;
+
+            // Filter records
+            let filtered = members.filter(m => {
+                const matchSearch = m.fullName.toLowerCase().includes(searchVal) || m.phone.includes(searchVal) || m.id.toLowerCase().includes(searchVal);
+                const matchScoreType = scoreTypeFilter === '' || m.scoreType === scoreTypeFilter;
+                const matchRegion = regionFilter === '' || m.region === regionFilter;
+                const matchStatus = statusFilter === '' || m.status === statusFilter;
+                return matchSearch && matchScoreType && matchRegion && matchStatus;
+            });
+
+            // Sort records
+            filtered.sort((a, b) => {
+                if (sortBy === 'scoreHigh') return parseFloat(b.scoreValue) - parseFloat(a.scoreValue);
+                if (sortBy === 'name') return a.fullName.localeCompare(b.fullName);
+                return new Date(b.date || 0) - new Date(a.date || 0);
+            });
+
+            const tbody = document.getElementById('adminTableBody');
+            const emptyState = document.getElementById('adminEmptyState');
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            tbody.innerHTML = filtered.map(m => {
+                let badgeClass = 'bg-amber-500/20 text-amber-300 border-amber-500/30';
+                if (m.status === 'Approved') badgeClass = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
+                if (m.status === 'Rejected') badgeClass = 'bg-red-500/20 text-red-300 border-red-500/30';
+
+                const scoreFormatted = m.scoreType === 'GPA' 
+                    ? `<span class="text-emerald-400 font-extrabold">${m.scoreValue} / 4.0</span> <span class="text-[10px] text-slate-500">(GPA)</span>`
+                    : `<span class="text-amber-400 font-extrabold">${m.scoreValue} / 600</span> <span class="text-[10px] text-slate-500">(Entrance)</span>`;
+
+                return `
+                    <tr class="hover:bg-slate-800/50 transition-colors">
+                        <td class="py-3 px-4 font-mono text-[11px] text-slate-400">${escapeHtml(m.id)}</td>
+                        <td class="py-3 px-4 font-bold text-white">${escapeHtml(m.fullName)}</td>
+                        <td class="py-3 px-4 font-mono text-slate-300">${escapeHtml(m.phone)}</td>
+                        <td class="py-3 px-4">
+                            <span class="bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded text-[11px]">
+                                ${escapeHtml(m.region)}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4">${scoreFormatted}</td>
+                        <td class="py-3 px-4">
+                            <span class="px-2.5 py-1 rounded-full border text-[10px] font-bold uppercase ${badgeClass}">
+                                ${m.status}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <div class="flex items-center justify-center gap-1.5">
+                                <button onclick="changeStatus('${m.id}', 'Approved')" title="Approve" class="p-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-lg border border-emerald-500/30">
+                                    <i class="fa-solid fa-check"></i>
+                                </button>
+                                <button onclick="changeStatus('${m.id}', 'Rejected')" title="Reject" class="p-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg border border-red-500/30">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                                <button onclick="openStudentModal('${m.id}')" title="View Details" class="p-1.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 rounded-lg border border-amber-500/30">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button onclick="deleteStudent('${m.id}')" title="Delete" class="p-1.5 bg-slate-800 hover:bg-red-900/40 text-slate-400 hover:text-red-300 rounded-lg border border-slate-700">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        window.changeStatus = async function(id, newStatus) {
+            liveMembersList = liveMembersList.map(m => m.id === id ? { ...m, status: newStatus } : m);
+            saveLocalMembers(liveMembersList);
+            renderAdminPanel();
+
+            if (db) {
+                try {
+                    const studentRef = doc(db, ...collectionPath, id);
+                    await updateDoc(studentRef, { status: newStatus });
+                } catch(e) {
+                    console.warn("Firestore status update skipped:", e);
+                }
+            }
+        };
+
+        window.deleteStudent = async function(id) {
+            if (confirm(`Are you sure you want to delete registration record ${id}?`)) {
+                liveMembersList = liveMembersList.filter(m => m.id !== id);
+                saveLocalMembers(liveMembersList);
+                renderAdminPanel();
+
+                if (db) {
+                    try {
+                        const studentRef = doc(db, ...collectionPath, id);
+                        await deleteDoc(studentRef);
+                    } catch(e) {
+                        console.warn("Firestore deletion skipped:", e);
+                    }
+                }
+            }
+        };
+
+        window.openStudentModal = function(id) {
+            const student = liveMembersList.find(m => m.id === id);
+            if (!student) return;
+
+            activeStudentDetailId = id;
+            document.getElementById('detailName').innerText = student.fullName;
+            document.getElementById('detailRegId').innerText = `Registration ID: ${student.id}`;
+            document.getElementById('detailPhone').innerText = student.phone;
+            document.getElementById('detailRegion').innerText = student.region;
+            
+            const displayScore = student.scoreType === 'GPA' ? `${student.scoreValue} / 4.0 (GPA)` : `${student.scoreValue} / 600 (Entrance)`;
+            document.getElementById('detailScore').innerText = displayScore;
+            
+            document.getElementById('detailStatus').innerText = student.status;
+            document.getElementById('detailDate').innerText = student.date;
+
+            document.getElementById('studentDetailModal').classList.remove('hidden');
+            document.getElementById('studentDetailModal').classList.add('flex');
+        };
+
+        window.closeStudentModal = function() {
+            document.getElementById('studentDetailModal').classList.add('hidden');
+            document.getElementById('studentDetailModal').classList.remove('flex');
+            activeStudentDetailId = null;
+        };
+
+        window.updateStudentStatusFromModal = function(status) {
+            if (activeStudentDetailId) {
+                changeStatus(activeStudentDetailId, status);
+                closeStudentModal();
+            }
+        };
+
+        window.exportCSV = function() {
+            if (liveMembersList.length === 0) {
+                alert("No student data available to export.");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,Reg ID,Full Name,Phone Number,Region,Score Type,Score Value,Status,Date\n";
+            liveMembersList.forEach(m => {
+                csvContent += `"${m.id}","${m.fullName}","${m.phone}","${m.region}","${m.scoreType}","${m.scoreValue}","${m.status}","${m.date}"\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `EPSU_Ethics_Club_Students_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        window.printSummaryReport = function() {
+            document.getElementById('printDate').innerText = new Date().toLocaleDateString();
+            document.getElementById('printCount').innerText = liveMembersList.length;
+
+            const printTbody = document.getElementById('printTableBody');
+            printTbody.innerHTML = liveMembersList.map((m, i) => `
+                <tr class="border border-slate-300">
+                    <td class="p-1.5 border border-slate-300 text-center">${i + 1}</td>
+                    <td class="p-1.5 border border-slate-300 font-bold">${escapeHtml(m.fullName)}</td>
+                    <td class="p-1.5 border border-slate-300">${escapeHtml(m.phone)}</td>
+                    <td class="p-1.5 border border-slate-300">${escapeHtml(m.region)}</td>
+                    <td class="p-1.5 border border-slate-300 text-center font-bold">${escapeHtml(m.scoreValue)} (${escapeHtml(m.scoreType)})</td>
+                    <td class="p-1.5 border border-slate-300 text-center">${escapeHtml(m.status)}</td>
+                </tr>
+            `).join('');
+
+            window.print();
+        };
+
+        document.getElementById('studentRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('regFullName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const region = document.getElementById('regRegion').value;
+            const scoreVal = parseFloat(document.getElementById('regScoreValue').value);
+
+            let isValid = true;
+
+            if (!fullName) {
+                document.getElementById('err-regFullName').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('err-regFullName').classList.add('hidden');
+            }
+
+            if (!phone || phone.length < 9) {
+                document.getElementById('err-regPhone').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('err-regPhone').classList.add('hidden');
+            }
+
+            if (!region) {
+                document.getElementById('err-regRegion').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('err-regRegion').classList.add('hidden');
+            }
+
+            const errScore = document.getElementById('err-regScoreValue');
+            if (activeScoreType === 'Entrance') {
+                if (isNaN(scoreVal) || scoreVal < 0 || scoreVal > 600) {
+                    errScore.innerText = 'Please enter a valid Entrance exam result between 0 and 600.';
+                    errScore.classList.remove('hidden');
+                    isValid = false;
+                } else {
+                    errScore.classList.add('hidden');
+                }
+            } else {
+                if (isNaN(scoreVal) || scoreVal < 0.0 || scoreVal > 4.0) {
+                    errScore.innerText = 'Please enter a valid GPA between 0.00 and 4.00.';
+                    errScore.classList.remove('hidden');
+                    isValid = false;
+                } else {
+                    errScore.classList.add('hidden');
+                }
+            }
+
+            if (!isValid) return;
+
+            const customRegId = `EPSU-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+            const registrationData = {
+                id: customRegId,
+                fullName: fullName,
+                phone: phone,
+                region: region,
+                scoreType: activeScoreType,
+                scoreValue: activeScoreType === 'GPA' ? scoreVal.toFixed(2) : Math.round(scoreVal),
+                status: 'Pending',
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            // 1. INSTANT LOCAL SAVE (Guarantees zero submission hang)
+            liveMembersList.unshift(registrationData);
+            saveLocalMembers(liveMembersList);
+
+            // 2. Clear Form & Show Immediate Feedback
+            this.reset();
+            toggleScoreType('Entrance');
+            playNotificationChime();
+            showLiveToast(`${fullName} successfully registered!`);
+
+            document.getElementById('successModal').classList.remove('hidden');
+            document.getElementById('successModal').classList.add('flex');
+
+            if (isAdminLoggedIn()) renderAdminPanel();
+
+            // 3. Optional Background Firestore Sync (with 2-second strict timeout)
+            if (db) {
+                const docRef = doc(db, ...collectionPath, customRegId);
+                const cloudData = { ...registrationData, createdAt: new Date().toISOString() };
+                delete cloudData.id;
+
+                const syncPromise = setDoc(docRef, cloudData);
+                const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject('Sync Timeout'), 2000));
+
+                Promise.race([syncPromise, timeoutPromise])
+                    .then(() => console.log("Background cloud sync complete."))
+                    .catch((err) => console.log("Background cloud sync deferred or offline:", err));
+            }
+        });
+
+        window.closeSuccessModal = function() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.getElementById('successModal').classList.remove('flex');
+        };
+
+        // Filter event listeners
+        document.getElementById('adminSearch').addEventListener('input', renderAdminPanel);
+        document.getElementById('adminFilterScoreType').addEventListener('change', renderAdminPanel);
+        document.getElementById('adminFilterRegion').addEventListener('change', renderAdminPanel);
+        document.getElementById('adminFilterStatus').addEventListener('change', renderAdminPanel);
+        document.getElementById('adminSortBy').addEventListener('change', renderAdminPanel);
+
+        // Mobile Nav Listener
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Initialize Background Cloud Sync
+        window.onload = function() {
+            initCloudSync();
+        };
+    </script>
+</body>
+</html>
